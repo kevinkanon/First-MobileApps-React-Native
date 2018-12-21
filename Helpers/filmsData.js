@@ -1,5 +1,6 @@
 // Helpers/filmsData.js
 
+{/* plus besoin de ce fichier car on utilise les films provenant d'une API*/}
 export default data = [
    {
       id:181808,
