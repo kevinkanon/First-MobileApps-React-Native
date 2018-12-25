@@ -62,8 +62,15 @@ class Search extends React.Component {
         }
       }
 
+    // Affiche les détails d'un film grâce à son ID au click dans la vue FilmDetails
+    _displayDetailForFilm = (idFilm) => { 
+        //console.log("Display film with id " + idFilm);
+        this.props.navigation.navigate("FilmDetail", { idFilm: idFilm });
+    }
+
     render() {
         //console.log(this.state.isLoading)
+        //console.log(this.props);
         return (
             // Ici on rend à l'écran les éléments graphiques de notre component custom Search
             <View style={styles.main_container}>
@@ -78,14 +85,15 @@ class Search extends React.Component {
                 <FlatList   //Flatlist permet de crée une liste d'objets
                     data={this.state.films}
                     keyExtractor={ (item) => item.id.toString() }
-                    renderItem={ ({item}) => <FilmItem film={item}/> }
+                    renderItem={ ({item}) => <FilmItem film={item} displayDetailForFilm={this._displayDetailForFilm} /> }
                     onEndReachedThreshold={0.5}
                     onEndReached={() => {
                         if (this.state.films.length > 0 && this.page < this.totalPages) {
                             this._loadFilms()
                         }
-                    }}
-                 />
+                    }
+                }
+                />
                  
                  {this._displayLoading()}
             </View>
@@ -95,8 +103,7 @@ class Search extends React.Component {
 
 const styles = StyleSheet.create ({
     main_container: {
-        flex: 1,
-        marginTop: 20
+        flex: 1
     },
     textinput: {
       marginLeft: 5,
