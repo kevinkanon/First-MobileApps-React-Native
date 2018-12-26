@@ -3,12 +3,12 @@
 import React from 'react';
 import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image } from 'react-native';
 import { getFilmDetailFromApi, getImageFromApi  } from '../API/TMDBApi';
-import moment from 'moment';
-import numeral from 'numeral';
+import moment from 'moment';        //  libraririe pour formater la date
+import numeral from 'numeral';      //  librairie js pour mabipuler et formater les numbers
 
 class FilmDetail extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
         film: undefined, // Pour l'instant on n'a pas les infos du film, on initialise donc le film à undefined.
         isLoading: true // A l'ouverture de la vue, on affiche le chargement, le temps de récupérer le détail du film
