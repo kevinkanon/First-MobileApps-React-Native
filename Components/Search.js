@@ -54,13 +54,13 @@ class Search extends React.Component {
     // Affiche l'icone de chargement
     _displayLoading() {
         if (this.state.isLoading) {
-          return (
-            <View style={styles.loading_container}>
-              <ActivityIndicator size='large' />{/* Le component ActivityIndicator affiche un icon loader de chargement pr l'expereince utilisateur */}
-            </View>
-          )
+            return (
+                <View style={styles.loading_container}>
+                    <ActivityIndicator size='large' />{/* Le component ActivityIndicator affiche un icon loader de chargement pr l'expereince utilisateur */}
+                </View>
+            )
         }
-      }
+    }
 
     // Affiche les détails d'un film grâce à son ID au click dans la vue FilmDetails
     _displayDetailForFilm = (idFilm) => { 
@@ -88,9 +88,7 @@ class Search extends React.Component {
                     renderItem={ ({item}) => <FilmItem film={item} displayDetailForFilm={this._displayDetailForFilm} /> }
                     onEndReachedThreshold={0.5}
                     onEndReached={() => {
-                        if (this.state.films.length > 0 && this.page < this.totalPages) {
-                            this._loadFilms()
-                        }
+                        if (this.state.films.length > 0 && this.page < this.totalPages) { this._loadFilms() }
                     }
                 }
                 />
@@ -102,26 +100,9 @@ class Search extends React.Component {
 }
 
 const styles = StyleSheet.create ({
-    main_container: {
-        flex: 1
-    },
-    textinput: {
-      marginLeft: 5,
-      marginRight: 5,
-      height: 50,
-      borderColor: '#000000',
-      borderWidth: 1,
-      paddingLeft: 5
-    },
-    loading_container: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 100,
-        bottom: 0,
-        alignItems: 'center',
-        justifyContent: 'center'
-      }
+    main_container: { flex: 1 },
+    textinput: { marginLeft: 5, marginRight: 5, height: 50, borderColor: '#000000', borderWidth: 1, paddingLeft: 5 },
+    loading_container: { position: 'absolute', left: 0, right: 0, top: 100, bottom: 0, alignItems: 'center', justifyContent: 'center' }
   })
 
 export default Search;
