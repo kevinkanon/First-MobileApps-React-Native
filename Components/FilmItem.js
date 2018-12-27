@@ -5,34 +5,43 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { getImageFromApi } from '../API/TMDBApi';
 
 class FilmItem extends React.Component {
-  render() {
-    //console.log(this.props);
-    const { film, displayDetailForFilm } = this.props; // ES6 code <=> const film = this.props.film; & const displayDetailForFilm = this.props.displayDetailForFilm
 
-    return (
-        // "onPress" n'existe pas sur le component View ni même "onClick", "onTouch" ... Il n'y a aucun moyen de récupérer un évènement sur un component View.
-        // En react native on utilise TouchableOpacity
-        <TouchableOpacity style={styles.main_container} onPress={() => displayDetailForFilm(film.id)}>
+    _displayFavoriteImage() {
+        if (this.props.isFilmFavorite) {
+            // Si la props isFilmFavorite vaut true, on affiche le 🖤 l'image coeur favoris
+            return ( <Image style={styles.favorite_image} source={require('../Images/favorite_film.png')}/> )
+        }
+    }
 
-            <Image style={styles.image} source={{uri: getImageFromApi(film.poster_path)}}/>
-            <View style={styles.content_container}>
+    render() {
+        //console.log(this.props);
+        const { film, displayDetailForFilm } = this.props; // ES6 code <=> const film = this.props.film; & const displayDetailForFilm = this.props.displayDetailForFilm
 
-                <View style={styles.header_container}>
-                    <Text style={styles.title_text}>{film.title}</Text>
-                    <Text style={styles.vote_text}>{film.vote_average}</Text>
+        return (
+            // "onPress" n'existe pas sur le component View ni même "onClick", "onTouch" ... Il n'y a aucun moyen de récupérer un évènement sur un component View.
+            // En react native on utilise TouchableOpacity
+            <TouchableOpacity style={styles.main_container} onPress={() => displayDetailForFilm(film.id)}>
+
+                <Image style={styles.image} source={{uri: getImageFromApi(film.poster_path)}}/>
+                <View style={styles.content_container}>
+
+                    <View style={styles.header_container}>
+                        {this._displayFavoriteImage()}
+                        <Text style={styles.title_text}>{film.title}</Text>
+                        <Text style={styles.vote_text}>{film.vote_average}</Text>
+                    </View>
+                    <View style={styles.description_container}>
+                        <Text style={styles.description_text} numberOfLines={6}>{film.overview}</Text>
+                        {/* La propriété numberOfLines permet de couper un texte si celui-ci est trop long, il suffit de définir un nombre maximum de ligne */}
+                    </View>
+                    <View style={styles.date_container}>
+                        <Text style={styles.date_text}>Sorti le {film.release_date}</Text>
+                    </View>
+                    
                 </View>
-                <View style={styles.description_container}>
-                    <Text style={styles.description_text} numberOfLines={6}>{film.overview}</Text>
-                    {/* La propriété numberOfLines permet de couper un texte si celui-ci est trop long, il suffit de définir un nombre maximum de ligne */}
-                </View>
-                <View style={styles.date_container}>
-                    <Text style={styles.date_text}>Sorti le {film.release_date}</Text>
-                </View>
-                
-            </View>
-        </TouchableOpacity>
-    )
-  }
+            </TouchableOpacity>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
@@ -45,7 +54,8 @@ const styles = StyleSheet.create({
     description_container: { flex: 7 },
     description_text: { fontStyle: 'italic', color: '#666666' },
     date_container: { flex: 1 },
-    date_text: { textAlign: 'right', fontSize: 14 }
+    date_text: { textAlign: 'right', fontSize: 14 },
+    favorite_image: { width: 25, height: 25, marginRight: 5 }
 })
 
 export default FilmItem;
