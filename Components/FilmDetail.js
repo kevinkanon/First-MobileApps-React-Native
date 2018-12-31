@@ -32,8 +32,8 @@ class FilmDetail extends React.Component {
         FilmDetail la liste des nouveaux films du store, la mappe à ses props et lance le cycle de vie updating pour se re-rendre.
     */
     componentDidUpdate() {
-        console.log("componentDidUpdate : ");
-        console.log(this.props.favoritesFilm);
+        /*console.log("componentDidUpdate : ");
+        console.log(this.props.favoritesFilm);*/
     }
     
 
@@ -95,7 +95,7 @@ class FilmDetail extends React.Component {
     }
 
     render() {
-        console.log(this.props);
+        //console.log(this.props);
         return (
             <View style={styles.main_container}>
                 {this._displayLoading()}
