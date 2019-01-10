@@ -2,6 +2,10 @@
 /* 
 component qui affiche la liste des films.
 component custom, qui est ré-utilisé dans la vue recherche et dans la vue Favoris qui affiche la liste des films 
+isolation de la liste de films dans ce component
+
+ce n'est pas à notre liste de films de récupérer les films depuis l'API ou du store Redux.
+Le component FilmList va recevoir des films de par ses props, les afficher et, au clic sur un film, naviguer vers son détail. 
 */
  
 import React from 'react';

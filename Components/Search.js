@@ -24,7 +24,7 @@ class Search extends React.Component {
     
     // appel de la fonction permettant l'appel à l'API  
     _loadFilms() {
-        console.log("Contenu de test : " + this.test)
+        //console.log("Contenu de test : " + this.test)
         //console.log(this.state.searchedText)  Un log pour vérifier qu'on a bien le texte du TextInput
         if (this.searchedText.length > 0) {     // Seulement si le texte recherché n'est pas vide
             this.setState({ isLoading: true })  // Lancement du chargement
@@ -72,7 +72,6 @@ class Search extends React.Component {
     }*/
 
     render() {
-        //console.log(this.state.isLoading)
         //console.log(this.props);
         return (
             // Ici on rend à l'écran les éléments graphiques de notre component custom Search
@@ -84,25 +83,6 @@ class Search extends React.Component {
                     onSubmitEditing={() => this._searchFilms()}   //Validation de la recherche avec le clavier mobile === fonction définie sur le button onPress == onSubmitEditing
                 />
                 <Button style={{ height: 50 }} title='Rechercher' onPress={ () => this._searchFilms() }/>
-                
-                {/*<FlatList   //Flatlist permet de crée une liste d'objets 
-                    data={this.state.films}
-                    keyExtractor={ (item) => item.id.toString() }
-                    renderItem={ ({item}) => 
-                        <FilmItem 
-                            film={item} 
-                            displayDetailForFilm={this._displayDetailForFilm} 
-                            // Ajout d'une props isFilmFavorite pour indiquer à l'item d'afficher un 🖤 ou non
-                            isFilmFavorite={(this.props.favoritesFilm.findIndex(film => film.id === item.id) !== -1) ? true : false}
-                        /> 
-                    }
-                    onEndReachedThreshold={0.5}
-                    onEndReached={() => {   // On vérifie également qu'on n'a pas atteint la fin de la pagination (totalPages) avant de charger plus d'éléments
-                            if (this.state.films.length > 0 && this.page < this.totalPages) { this._loadFilms() }
-                        }
-                    }
-                />
-                */}
 
                 <FilmList
                     films={this.state.films} // C'est bien le component Search qui récupère les films depuis l'API et on les transmet ici pour que le component FilmList les affiche
@@ -112,7 +92,29 @@ class Search extends React.Component {
                     totalPages={this.totalPages} // les infos page et totalPages vont être utile, côté component FilmList, pour ne pas déclencher l'évènement pour charger plus de film si on a atteint la dernière page
                 />
                  
-                 {this._displayLoading()}
+                {this._displayLoading()} 
+
+                {/*
+                <FlatList                                  //Flatlist permet de crée une liste d'objets 
+                    data={this.state.films}
+                    extraData={this.props.favoritesFilm}  // On utilise la prop extraData pour indiquer à notre FlatList que d’autres données doivent être prises en compte si on lui demande de se re-rendre
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({item}) =>
+                        <FilmItem
+                        film={item}
+                        // Ajout d'une props isFilmFavorite pour indiquer à l'item d'afficher un 🖤 ou non
+                        isFilmFavorite={(this.props.favoritesFilm.findIndex(film => film.id === item.id) !== -1) ? true : false}
+                        displayDetailForFilm={this._displayDetailForFilm}
+                        />
+                    }
+                    onEndReachedThreshold={0.5}
+                    onEndReached={() => {
+                        if (this.page < this.totalPages) { // On vérifie également qu'on n'a pas atteint la fin de la pagination (totalPages) avant de charger plus d'éléments
+                            this._loadFilms()
+                        }
+                    }}
+                />
+                */}
             </View>
         )
     }

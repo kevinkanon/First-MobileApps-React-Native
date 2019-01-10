@@ -11,8 +11,8 @@ class FilmDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        film: undefined, // Pour l'instant on n'a pas les infos du film, on initialise donc le film à undefined.
-        isLoading: true // A l'ouverture de la vue, on affiche le chargement, le temps de récupérer le détail du film
+            film: undefined, // Pour l'instant on n'a pas les infos du film, on initialise donc le film à undefined.
+            isLoading: true // A l'ouverture de la vue, on affiche le chargement, le temps de récupérer le détail du film
         }
     }
 
@@ -117,7 +117,9 @@ const styles = StyleSheet.create({
     favorite_image: { width: 40, height: 40 }
 })
 
-/* fonction native de redux const mapStateToProps = (state) => { return state } retourne tout le state de l'applicatiopn qui ne nous interesse pas on veut juste le state lié au film favoris 
+/* 
+    fonction native de redux const mapStateToProps = (state) => { return state } retourne tout le state de l'applicatiopn qui ne nous interesse pas 
+    on veut juste le state lié au film favoris 
     voir fonction ci dessous
     les info du state global de Redux sont mappé aux Props du component FilmDetails
 */
