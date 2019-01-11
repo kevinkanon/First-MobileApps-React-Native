@@ -16,7 +16,7 @@ class Search extends React.Component {
             films: [],
             isLoading: false    // Par défaut à false car il n'y a pas de chargement tant qu'on ne lance pas de recherche 
         }     
-        this._loadFilms = this._loadFilms.bind(this);
+        this._loadFilms = this._loadFilms.bind(this); // databinding car this._loadFilms dans Search fait reference a this.loadFilms depuis Filmlist
     }
 
     // hydratation de la valeur du text saisie en temps réel dans le Input
@@ -42,11 +42,7 @@ class Search extends React.Component {
     /* Ici on va remettre à zéro les films de notre state - _loadFilms() dans le callback de setState pr qu'il ne s'exécute pas de façon asynchrone 
        il s'éxécutera seulement à pares que page et totalPages soient remis à zero 
        - setState est une fonction asynchrone   */
-    _searchFilms() {
-        this.page = 0
-        this.totalPages = 0
-        this.setState({
-            films: [],
+    _searchFilms() { this.page = 0; this.totalPages = 0; this.setState({ films: [],
             }, () => { 
                 //console.log("Page : " + this.page + " / TotalPages : " + this.totalPages + " / Nombre de films : " + this.state.films.length)
                 this._loadFilms() 
@@ -90,6 +86,7 @@ class Search extends React.Component {
                     loadFilms={this._loadFilms} // _loadFilm charge les films suivants, ça concerne l'API, le component FilmList va juste appeler cette méthode quand l'utilisateur aura parcouru tous les films et c'est le component Search qui lui fournira les films suivants
                     page={this.page}
                     totalPages={this.totalPages} // les infos page et totalPages vont être utile, côté component FilmList, pour ne pas déclencher l'évènement pour charger plus de film si on a atteint la dernière page
+                    favoriteList={false} // Ici j'ai simplement ajouté un booléen à false pour indiquer qu'on n'est pas dans le cas de l'affichage de la liste des films favoris. Et ainsi pouvoir déclencher le chargement de plus de films lorsque l'utilisateur scroll.
                 />
                  
                 {this._displayLoading()} 
